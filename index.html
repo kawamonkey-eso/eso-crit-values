@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Minimum Critical Value</title>
+  </head>
+  <body>
+    <div style="width: 100%;"><canvas id="chart"></canvas></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+    const x = [], y1 = [], y2 = []
+
+    for (let i = 1; i <= 50; i++) {
+        const label = `Level ${i}`
+        const level = i
+        const mcv = 2 * level * (100 + level)
+
+        x.push(label)
+        y1.push(Math.round(mcv))
+        y2.push(Math.round(mcv * 0.9))
+    }
+    for (let i = 10; i <= 160; i+=10) {
+        const label = `CP ${i}`
+        const level = 50 + i / 10
+        const mcv = 2 * level * (100 + level)
+
+        x.push(label)
+        y1.push(Math.round(mcv))
+        y2.push(Math.round(mcv * 0.9))
+    }
+
+    new Chart(
+        document.getElementById('chart'),
+        {
+            type: 'line',
+            data: {
+                labels: x,
+                datasets: [
+                    {
+                        label: 'Minimum Critical Value',
+                        data: y1,
+                        pointStyle: false,
+                    },
+                    {
+                        label: 'Critical Value for 100%',
+                        data: y2,
+                        pointStyle: false,
+                    }
+                ]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        font: {
+                            size: 20
+                        },
+                        text: 'Critical Values',
+                    }
+                }
+            }
+        
+        }
+    )
+    </script>
+  </body>
+</html>
+ 
